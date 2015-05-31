@@ -1,0 +1,19 @@
+
+
+langauge: python
+python:
+    - "2.7"
+before_install:
+    - "sudo apt-get install -qq python-numpy python-scipy"
+    - "sudo apt-get install -qq libatlas-dev libatlas-base-dev liblapack-dev gfortran"
+install:
+    - "pip install pythran"
+    - "pip install cython"
+    - "pip install pytest-pep8"
+    - "pip install numpy"
+    - "pip install scipy"
+    - "pip install gmpy2"
+    - "pip install -r requirements.txt"
+    
+
+script: nosetests

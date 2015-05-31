@@ -5,12 +5,22 @@ __version__ = ""
 __contact__ = "aburan28@gmail.com"
 
 
+__all__ = ['sha1']
+
+from utils import chunks,rol
 
 
 
+If = lambda b,c,d: (B & C) ^ ((~B) & D)
+Maj = lambda b,c,d: (B ^ C ^ D)
 
 
 def sha1(data):
+    """
+    
+    
+    
+    """
     bytes = ""
 
     h0 = 0x67452301
@@ -18,7 +28,7 @@ def sha1(data):
     h2 = 0x98BADCFE
     h3 = 0x10325476
     h4 = 0xC3D2E1F0
-
+    
     for n in range(len(data)):
         bytes+='{0:08b}'.format(ord(data[n]))
     bits = bytes+"1"
@@ -49,27 +59,30 @@ def sha1(data):
         d = h3
         e = h4
 
-        #Main loop
         for i in range(0, 80):
+            # round 1
             if 0 <= i <= 19:
                 f = (b & c) | ((~b) & d)
                 k = 0x5A827999
+            # round 2
             elif 20 <= i <= 39:
                 f = b ^ c ^ d
                 k = 0x6ED9EBA1
+            # round 3
             elif 40 <= i <= 59:
                 f = (b & c) | (b & d) | (c & d) 
                 k = 0x8F1BBCDC
+            # round 4
             elif 60 <= i <= 79:
                 f = b ^ c ^ d
                 k = 0xCA62C1D6
 
-            temp = rol(a, 5) + f + e + k + w[i] & 0xffffffff
-            e = d
-            d = c
-            c = rol(b, 30)
-            b = a
-            a = temp
+                temp = rol(a, 5) + f + e + k + w[i] & 0xffffffff
+                e = d
+                d = c
+                c = rol(b, 30)
+                b = a
+                a = temp
 
         h0 = h0 + a & 0xffffffff
         h1 = h1 + b & 0xffffffff
